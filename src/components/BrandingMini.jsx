@@ -54,7 +54,7 @@ const BrandingMini = () => {
           color: "#1F2937"
         }}
       >
-        PhotoFlow
+        GBALumina
       </span>
     </div>
   );
