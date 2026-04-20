@@ -180,6 +180,13 @@ function StudioForm() {
 function StudioLogoForm() {
   const { settings, updateSettings } = useSettings();
   const [uploading, setUploading] = useState(false);
+  const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    if (settings?.logoUrl) {
+      setPreview(settings.logoUrl);
+    }
+  }, [settings]);
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -190,12 +197,22 @@ function StudioLogoForm() {
     try {
       const storage = getStorage();
       const fileRef = ref(storage, `logos/${Date.now()}_${file.name}`);
+
+      // Subir archivo
       await uploadBytes(fileRef, file);
+
+      // Obtener URL
       const url = await getDownloadURL(fileRef);
 
-      updateSettings({ logoUrl: url });
+      // Guardar en Firestore
+      await updateSettings({ logoUrl: url });
+
+      // Actualizar preview inmediatamente
+      setPreview(url);
+
     } catch (err) {
       console.error("Error subiendo logo:", err);
+      alert("Error subiendo el logo. Revisá la consola.");
     }
 
     setUploading(false);
@@ -203,9 +220,10 @@ function StudioLogoForm() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      {settings.logoUrl && (
+      
+      {preview && (
         <img
-          src={settings.logoUrl}
+          src={preview}
           alt="Logo del estudio"
           style={{
             width: "140px",
@@ -225,6 +243,7 @@ function StudioLogoForm() {
     </div>
   );
 }
+
 
 /* -------------------------------------------------------
    REUSABLE COMPONENTS

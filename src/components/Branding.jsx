@@ -50,9 +50,19 @@ const Branding = () => {
         />
       </div>
 
-      <h1 style={{ fontFamily: "Inter", fontSize: "24px", margin: "0" }}>
+      <h1
+        style={{
+          fontFamily: "Inter",
+          fontSize: "28px",
+          fontWeight: 700,
+          color: "#1F2937",
+          letterSpacing: "-0.5px",
+          margin: "0"
+        }}
+      >
         {t("appName")}
       </h1>
+
 
       <p
         style={{
