@@ -1,0 +1,103 @@
+{
+  "appName": "PhotoFlow",
+  "subtitle": "Gestión profesional para fotógrafos",
+
+  "login": "Iniciar sesión",
+  "register": "Registrarme",
+  "email": "Email",
+  "password": "Contraseña",
+  "noAccount": "¿No tenés cuenta?",
+  "haveAccount": "¿Ya tenés cuenta?",
+  "createAccount": "Crear cuenta",
+
+  "dashboardWelcome": "Bienvenido a PhotoFlow",
+  "budgets": "Presupuestos",
+  "budgetsDesc": "Creá, enviá y gestioná presupuestos profesionales.",
+  "contracts": "Contratos",
+  "contractsDesc": "Generá contratos automáticos y enviálos a tus clientes.",
+  "selection": "Selección",
+  "selectionDesc": "Permití que tus clientes elijan sus fotos favoritas.",
+
+  "logout": "Cerrar sesión",
+  "language": "Idioma",
+  "currency": "Moneda",
+
+  
+  "createBudget": "Crear presupuesto",
+  "noBudgetsYet": "Todavía no hay presupuestos creados.",
+
+  "clients": "Clientes",
+  "createClient": "Crear cliente",
+  "noClientsYet": "Todavía no hay clientes cargados.",
+  "clientName": "Nombre completo",
+  "clientEmail": "Email",
+  "clientPhone": "Teléfono",
+  "clientAddress": "Dirección",
+  "clientCity": "Ciudad",
+  "clientCountry": "País",
+  "clientType": "Tipo de cliente",
+  "clientTypeIndividual": "Particular",
+  "clientTypeCompany": "Empresa",
+  "clientTaxId": "CUIT / Identificación fiscal",
+  "clientNotes": "Notas",
+  "saveClient": "Guardar cliente",
+
+  "editClient": "Editar cliente",
+  "updateClient": "Actualizar cliente",
+  "deleteClient": "Eliminar cliente",
+  "clientSaved": "Cliente actualizado correctamente.",
+  "clientDeleted": "Cliente eliminado correctamente.",
+
+  "newBudget": "Nuevo presupuesto",
+"selectClient": "Seleccionar cliente",
+"budgetDate": "Fecha",
+"items": "Ítems",
+"service": "Servicio",
+"quantity": "Cantidad",
+"unitPrice": "Precio unitario",
+"addItem": "Agregar ítem",
+"notes": "Notas",
+"status": "Estado",
+"draft": "Borrador",
+"sent": "Enviado",
+"accepted": "Aceptado",
+"saveBudget": "Guardar presupuesto",
+"total": "Total",
+"back": "Volver",
+
+"editBudget": "Editar presupuesto",
+"saveChanges": "Guardar cambios",
+"deleteBudget": "Eliminar presupuesto",
+"confirmDelete": "¿Seguro que deseas eliminar este presupuesto?",
+"save": "Guardar",
+"delete": "Eliminar",
+
+
+ 
+  "errorServiceRequired": "Debes ingresar un nombre de servicio.",
+  "errorPricePositive": "El precio debe ser mayor a 0.",
+  "errorClientRequired": "Debes seleccionar un cliente.",
+  "errorDateRequired": "Debes seleccionar una fecha.",
+  "errorItemsRequired": "Debes agregar al menos un ítem.",
+
+  "hello": "Hola",
+"budgetsDescription": "Crear y gestionar presupuestos",
+"contractsDescription": "Generar y administrar contratos",
+"selectionDescription": "Organizar y entregar selecciones",
+"all": "Todos",
+"search": "Buscar...",
+
+"newContract": "Nuevo contrato",
+"createContract": "Crear contrato",
+"signContract": "Firmar contrato",
+"sendEmail": "Enviar por email",
+"signHere": "Firma aquí",
+"confirmSignature": "Confirmar firma",
+"signed": "Firmado",
+"errorSelectTemplate": "Debes seleccionar una plantilla."
+
+
+
+
+
+}

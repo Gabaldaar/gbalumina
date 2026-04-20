@@ -1,0 +1,103 @@
+{
+  "appName": "PhotoFlow",
+  "subtitle": "Professional workflow for photographers",
+
+  "login": "Log in",
+  "register": "Sign up",
+  "email": "Email",
+  "password": "Password",
+  "noAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "createAccount": "Create account",
+
+  "dashboardWelcome": "Welcome to PhotoFlow",
+  "budgets": "Budgets",
+  "budgetsDesc": "Create, send and manage professional quotes.",
+  "contracts": "Contracts",
+  "contractsDesc": "Generate automatic contracts and send them to clients.",
+  "selection": "Selection",
+  "selectionDesc": "Let your clients choose their favorite photos.",
+
+  "logout": "Log out",
+  "language": "Language",
+  "currency": "Currency",
+ 
+  "createBudget": "Create budget",
+  "noBudgetsYet": "No budgets created yet.",
+
+  "clients": "Clients",
+  "createClient": "Create client",
+  "noClientsYet": "No clients added yet.",
+  "clientName": "Full name",
+  "clientEmail": "Email",
+  "clientPhone": "Phone",
+  "clientAddress": "Address",
+  "clientCity": "City",
+  "clientCountry": "Country",
+  "clientType": "Client type",
+  "clientTypeIndividual": "Individual",
+  "clientTypeCompany": "Company",
+  "clientTaxId": "Tax ID / VAT",
+  "clientNotes": "Notes",
+  "saveClient": "Save client",
+
+  "editClient": "Edit client",
+  "updateClient": "Update client",
+  "deleteClient": "Delete client",
+  "clientSaved": "Client updated successfully.",
+  "clientDeleted": "Client deleted successfully.",
+
+  "newBudget": "New budget",
+"selectClient": "Select client",
+"budgetDate": "Date",
+"items": "Items",
+"service": "Service",
+"quantity": "Quantity",
+"unitPrice": "Unit price",
+"addItem": "Add item",
+"notes": "Notes",
+"status": "Status",
+"draft": "Draft",
+"sent": "Sent",
+"accepted": "Accepted",
+"saveBudget": "Save budget",
+"total": "Total",
+"back": "Back",
+
+"editBudget": "Edit budget",
+"saveChanges": "Save changes",
+"deleteBudget": "Delete budget",
+"confirmDelete": "Are you sure you want to delete this budget?",
+"save": "Save",
+
+
+  "errorServiceRequired": "You must enter a service name.",
+  "errorPricePositive": "Price must be greater than 0.",
+  "errorClientRequired": "You must select a client.",
+  "errorDateRequired": "You must select a date.",
+  "errorItemsRequired": "You must add at least one item.",
+
+  "hello": "Hello",
+"budgetsDescription": "Create and manage budgets",
+"contractsDescription": "Generate and manage contracts",
+"selectionDescription": "Organize and deliver selections",
+
+"all": "All",
+"search": "Search...",
+
+"newContract": "New contract",
+"createContract": "Create contract",
+"signContract": "Sign contract",
+"sendEmail": "Send by email",
+"signHere": "Sign here",
+"confirmSignature": "Confirm signature",
+"signed": "Signed",
+"errorSelectTemplate": "You must select a template."
+
+
+
+
+
+
+
+}
