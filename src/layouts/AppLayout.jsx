@@ -6,17 +6,7 @@ const AppLayout = ({ children }) => {
     <div style={{ backgroundColor: "#F9FAFB", minHeight: "100vh" }}>
       
       {/* Header full width */}
-      <div style={{ backgroundColor: "white", borderBottom: "1px solid #E5E7EB" }}>
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "0 24px"
-          }}
-        >
-          <Header />
-        </div>
-      </div>
+      <Header />
 
       {/* Contenido */}
       <div

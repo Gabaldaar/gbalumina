@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
-
+import SectionHeader from "../../components/SectionHeader";
 
 const ClientNew = () => {
   const { t } = useTranslation();
@@ -43,14 +43,20 @@ const ClientNew = () => {
 
   return (
     <AppLayout>
-    <Button variant="secondary" onClick={() => navigate(-1)} style={{ marginBottom: "20px" }}>
-      ← {t("back")}
-    </Button>
 
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("createClient")}
+        subtitle={t("createClientSubtitle")}
+      />
 
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {t("createClient")}
-      </h2>
+      <Button
+        variant="secondary"
+        onClick={() => navigate(-1)}
+        style={{ marginBottom: "20px" }}
+      >
+        ← {t("back")}
+      </Button>
 
       <div
         style={{
@@ -136,11 +142,9 @@ const ClientNew = () => {
           style={{ width: "100%", padding: "8px", marginBottom: "12px" }}
         />
 
-      <Button variant="primary" type="button" onClick={saveClient}>
-        {t("saveClient")}
-      </Button>
-
-
+        <Button variant="primary" type="button" onClick={saveClient}>
+          {t("saveClient")}
+        </Button>
       </div>
     </AppLayout>
   );

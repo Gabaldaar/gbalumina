@@ -20,3 +20,15 @@ Idioma - Nombre Fotografo - Nombre estudio - Logo
 Usar esto en los contratos y presupuestos
 
 Selector de moneda con API universal y dentro de presupuestos.
+
+Que en cada sección haya encabezado
+Header responsivo
+Identificación de Estudio, Logo, Fotógrafo
+Buscador de clientes
+En Configuración Agregar Idioma y Monedas
+Ver de dejar preparado para otro idioma
+PDF de presupuesto
+PDF de Contrato
+De dónde se editan los contratos
+¿Cómo se administran los usuarios de la app?
+

@@ -1,30 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import BrandingMini from "./BrandingMini";
-import { useTranslation } from "react-i18next";
-import { useContext } from "react";
-import { CurrencyContext } from "../context/CurrencyContext";
-
+import { auth, db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
-  const { currency, setCurrency } = useContext(CurrencyContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [studioData, setStudioData] = useState(null);
 
   const user = auth.currentUser;
-  const userName = user?.displayName || user?.email || "";
+  const uid = user?.uid;
+
+  // Cargar datos del estudio
+  useEffect(() => {
+    if (!uid) return;
+
+    const fetchSettings = async () => {
+      const ref = doc(db, "settings", uid);
+      const snap = await getDoc(ref);
+      if (snap.exists()) setStudioData(snap.data());
+    };
+
+    fetchSettings();
+  }, [uid]);
 
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/login");
-  };
-
-  const changeLanguage = (e) => {
-    const lang = e.target.value;
-    i18n.changeLanguage(lang);
-    localStorage.setItem("lang", lang);
   };
 
   return (
@@ -33,95 +36,175 @@ const Header = () => {
         width: "100%",
         backgroundColor: "white",
         borderBottom: "1px solid #E5E7EB",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        height: "70px",
         position: "sticky",
         top: 0,
-        zIndex: 10
+        zIndex: 50,
       }}
     >
-      {/* Branding + Nav */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <BrandingMini />
-
-        <div style={{ display: "flex", alignItems: "center", gap: "20px", marginLeft: "20px" }}>
-          <button onClick={() => navigate("/")} style={navBtn}>{t("dashboard")}</button>
-          <button onClick={() => navigate("/clients")} style={navBtn}>{t("clients")}</button>
-          <button onClick={() => navigate("/budgets")} style={navBtn}>{t("budgets")}</button>
-        </div>
-      </div>
-
-      <button
-        onClick={() => navigate("/settings")}
+      {/* Contenedor interno */}
+      <div
         style={{
-          background: "transparent",
-          border: "none",
-          cursor: "pointer",
-          fontSize: "20px",
-          marginRight: "10px"
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "0 20px",
+          height: "70px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
-        title="Configuración"
       >
-        ⚙️
-      </button>
+        {/* IZQUIERDA: Logo + Estudio */}
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          {studioData?.logoUrl && (
+            <img
+              src={studioData.logoUrl}
+              alt="Logo"
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "6px",
+                objectFit: "cover",
+              }}
+            />
+          )}
 
-
-      {/* Controls */}
-      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-        
-        {/* Saludo */}
-        <div style={{ fontFamily: "Inter", fontSize: "14px", color: "#374151" }}>
-          {t("hello")}, {userName}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827" }}>
+              {studioData?.studioName || "Mi Estudio"}
+            </span>
+            <span style={{ fontSize: "12px", color: "#6B7280" }}>
+              {studioData?.photographerName || ""}
+            </span>
+          </div>
         </div>
 
-        {/* Idioma */}
-        <select onChange={changeLanguage} value={i18n.language} style={selectStyle}>
-          <option value="es">ES</option>
-          <option value="en">EN</option>
-        </select>
-
-        {/* Moneda */}
-        <select value={currency} onChange={(e) => setCurrency(e.target.value)} style={selectStyle}>
-          <option value="ARS">ARS</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-
-        {/* Logout */}
-        <button onClick={handleLogout} style={logoutBtn}>
-          {t("logout")}
+        {/* BOTÓN HAMBURGUESA (solo mobile) */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            background: "none",
+            border: "none",
+            fontSize: "26px",
+            cursor: "pointer",
+            display: "none",
+          }}
+          className="mobile-menu-btn"
+        >
+          ☰
         </button>
+
+        {/* MENÚ DESKTOP */}
+        <nav
+          className="desktop-menu"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <button onClick={() => navigate("/")} style={navBtn}>
+            Dashboard
+          </button>
+          <button onClick={() => navigate("/clients")} style={navBtn}>
+            Clientes
+          </button>
+          <button onClick={() => navigate("/budgets")} style={navBtn}>
+            Presupuestos
+          </button>
+
+          {/* CONFIGURACIÓN */}
+          <button
+            onClick={() => navigate("/settings")}
+            style={{ ...navBtn, fontSize: "20px" }}
+            title="Configuración"
+          >
+            ⚙️
+          </button>
+
+          <button onClick={handleLogout} style={logoutBtn}>
+            Salir
+          </button>
+        </nav>
       </div>
+
+      {/* MENÚ MOBILE */}
+      {menuOpen && (
+        <div
+          style={{
+            background: "white",
+            borderTop: "1px solid #E5E7EB",
+            padding: "15px 20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+          }}
+          className="mobile-menu"
+        >
+          <button onClick={() => navigate("/")} style={navBtnMobile}>
+            Dashboard
+          </button>
+          <button onClick={() => navigate("/clients")} style={navBtnMobile}>
+            Clientes
+          </button>
+          <button onClick={() => navigate("/budgets")} style={navBtnMobile}>
+            Presupuestos
+          </button>
+
+          {/* CONFIGURACIÓN MOBILE */}
+          <button
+            onClick={() => navigate("/settings")}
+            style={navBtnMobile}
+          >
+            ⚙️ Configuración
+          </button>
+
+          <button onClick={handleLogout} style={logoutBtn}>
+            Salir
+          </button>
+        </div>
+      )}
+
+      {/* ESTILOS RESPONSIVOS */}
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .desktop-menu {
+              display: none;
+            }
+            .mobile-menu-btn {
+              display: block;
+            }
+          }
+        `}
+      </style>
     </header>
   );
 };
 
+/* ESTILOS */
 const navBtn = {
   background: "none",
   border: "none",
   cursor: "pointer",
   fontFamily: "Inter",
   fontSize: "14px",
-  color: "#374151"
+  color: "#374151",
 };
 
-const selectStyle = {
-  padding: "6px",
-  borderRadius: "6px",
-  border: "1px solid #D1D5DB",
-  fontFamily: "Inter"
+const navBtnMobile = {
+  ...navBtn,
+  textAlign: "left",
+  padding: "8px 0",
 };
 
 const logoutBtn = {
   padding: "8px 14px",
-  backgroundColor: "#3B82F6",
+  backgroundColor: "#EF4444",
   color: "white",
   border: "none",
   borderRadius: "6px",
   cursor: "pointer",
-  fontFamily: "Inter"
+  fontFamily: "Inter",
 };
 
 export default Header;

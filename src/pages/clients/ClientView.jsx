@@ -10,8 +10,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/ui/Button";
-
-
+import SectionHeader from "../../components/SectionHeader";
 
 const ClientView = () => {
   const { t } = useTranslation();
@@ -58,7 +57,7 @@ const ClientView = () => {
   };
 
   const deleteClient = async () => {
-    if (!window.confirm("¿Eliminar cliente?")) return;
+    if (!window.confirm(t("confirmDeleteClient"))) return;
 
     const ref = doc(db, "clients", id);
     await deleteDoc(ref);
@@ -67,18 +66,24 @@ const ClientView = () => {
     navigate("/clients");
   };
 
-  if (loading) return <AppLayout>Cargando...</AppLayout>;
+  if (loading) return <AppLayout>{t("loading")}...</AppLayout>;
 
   return (
     <AppLayout>
-    <Button variant="secondary" onClick={() => navigate(-1)} style={{ marginBottom: "20px" }}>
-      ← {t("back")}
-    </Button>
 
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("editClient")}
+        subtitle={t("editClientSubtitle")}
+      />
 
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {t("editClient")}
-      </h2>
+      <Button
+        variant="secondary"
+        onClick={() => navigate(-1)}
+        style={{ marginBottom: "20px" }}
+      >
+        ← {t("back")}
+      </Button>
 
       <div
         style={{
@@ -164,38 +169,21 @@ const ClientView = () => {
           style={{ width: "100%", padding: "8px", marginBottom: "12px" }}
         />
 
-        <button
+        <Button
+          variant="primary"
           onClick={updateClient}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#3B82F6",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter",
-            fontSize: "14px",
-            marginRight: "10px"
-          }}
+          style={{ marginRight: "10px" }}
         >
           {t("updateClient")}
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="primary"
           onClick={deleteClient}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#EF4444",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter",
-            fontSize: "14px"
-          }}
+          style={{ backgroundColor: "#EF4444", borderColor: "#EF4444" }}
         >
           {t("deleteClient")}
-        </button>
+        </Button>
       </div>
     </AppLayout>
   );

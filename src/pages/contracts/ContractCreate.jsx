@@ -5,6 +5,8 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { contractTemplates } from "../../data/contractTemplates";
+import SectionHeader from "../../components/SectionHeader";
+import Button from "../../components/ui/Button";
 
 export default function ContractCreate() {
   const navigate = useNavigate();
@@ -50,12 +52,12 @@ export default function ContractCreate() {
 
   const handleSubmit = async () => {
     if (!template) {
-      setError("Debes seleccionar una plantilla.");
+      setError(t("errorSelectTemplate"));
       return;
     }
 
     if (!form.clientId) {
-      setError("Debes seleccionar un cliente.");
+      setError(t("errorClientRequired"));
       return;
     }
 
@@ -84,10 +86,12 @@ export default function ContractCreate() {
 
   return (
     <AppLayout>
-      {/* Título */}
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {t("newContract")}
-      </h2>
+
+      {/* SectionHeader */}
+      <SectionHeader
+        title={t("newContract")}
+        subtitle={t("createContractSubtitle")}
+      />
 
       {/* Error */}
       {error && (
@@ -108,7 +112,7 @@ export default function ContractCreate() {
       {!template && (
         <>
           <p style={{ marginBottom: "10px", fontFamily: "Inter" }}>
-            Seleccioná un tipo de contrato:
+            {t("selectContractType")}
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -131,20 +135,13 @@ export default function ContractCreate() {
           </div>
 
           {/* Botón salir */}
-          <button
+          <Button
+            variant="secondary"
             onClick={() => navigate("/contracts")}
-            style={{
-              marginTop: "20px",
-              padding: "10px 16px",
-              backgroundColor: "#E5E7EB",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontFamily: "Inter"
-            }}
+            style={{ marginTop: "20px" }}
           >
-            Cancelar
-          </button>
+            {t("cancel")}
+          </Button>
         </>
       )}
 
@@ -160,7 +157,7 @@ export default function ContractCreate() {
           }}
         >
           {/* Cliente */}
-          <label style={{ fontFamily: "Inter" }}>Cliente</label>
+          <label style={{ fontFamily: "Inter" }}>{t("client")}</label>
           <select
             value={form.clientId || ""}
             onChange={(e) => handleFieldChange("clientId", e.target.value)}
@@ -172,7 +169,7 @@ export default function ContractCreate() {
               border: "1px solid #D1D5DB"
             }}
           >
-            <option value="">Seleccionar cliente</option>
+            <option value="">{t("selectClient")}</option>
             {clients.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name} — {c.email}
@@ -200,34 +197,13 @@ export default function ContractCreate() {
 
           {/* Botones */}
           <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-            <button
-              onClick={handleSubmit}
-              style={{
-                padding: "10px 16px",
-                backgroundColor: "#3B82F6",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                fontFamily: "Inter"
-              }}
-            >
-              Crear contrato
-            </button>
+            <Button variant="primary" onClick={handleSubmit}>
+              {t("createContract")}
+            </Button>
 
-            <button
-              onClick={() => navigate("/contracts")}
-              style={{
-                padding: "10px 16px",
-                backgroundColor: "#E5E7EB",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                fontFamily: "Inter"
-              }}
-            >
-              Cancelar
-            </button>
+            <Button variant="secondary" onClick={() => navigate("/contracts")}>
+              {t("cancel")}
+            </Button>
           </div>
         </div>
       )}

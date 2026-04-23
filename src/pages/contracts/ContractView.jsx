@@ -4,7 +4,10 @@ import { db } from "../../firebase";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-hot-toast";
 import SignaturePad from "react-signature-canvas";
+import SectionHeader from "../../components/SectionHeader";
+import Button from "../../components/ui/Button";
 
 export default function ContractView() {
   const { id } = useParams();
@@ -33,11 +36,11 @@ export default function ContractView() {
       content,
       dateUpdated: new Date().toISOString()
     });
-    alert("Cambios guardados");
+    alert(t("changesSaved"));
   };
 
   const deleteContract = async () => {
-    const confirmDelete = window.confirm("¿Seguro que querés eliminar este contrato?");
+    const confirmDelete = window.confirm(t("confirmDelete"));
     if (!confirmDelete) return;
 
     await deleteDoc(doc(db, "contracts", id));
@@ -54,33 +57,28 @@ export default function ContractView() {
     });
 
     setShowSignature(false);
-    alert("Contrato firmado");
+    alert(t("contractSigned"));
   };
 
   if (!contract) return null;
 
   return (
     <AppLayout>
+
+      {/* SectionHeader */}
+      <SectionHeader
+        title={contract.title}
+        subtitle={t("editContractSubtitle")}
+      />
+
       {/* Volver */}
-      <button
+      <Button
+        variant="secondary"
         onClick={() => navigate(-1)}
-        style={{
-          marginBottom: "20px",
-          padding: "8px 14px",
-          backgroundColor: "#E5E7EB",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontFamily: "Inter"
-        }}
+        style={{ marginBottom: "20px" }}
       >
         ← {t("back")}
-      </button>
-
-      {/* Título */}
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {contract.title}
-      </h2>
+      </Button>
 
       {/* Editor */}
       <textarea
@@ -98,66 +96,46 @@ export default function ContractView() {
       />
 
       {/* Botones */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <button
-          onClick={saveChanges}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#3B82F6",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter"
-          }}
-        >
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px", flexWrap: "wrap" }}>
+        <Button variant="primary" onClick={saveChanges}>
           {t("saveChanges")}
-        </button>
+        </Button>
 
-        <button
-          onClick={() => setShowSignature(true)}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#10B981",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter"
+        <Button 
+          variant="primary" 
+          onClick={() => {
+            const publicLink = `${window.location.origin}/c/${id}`;
+            navigator.clipboard.writeText(publicLink);
+            toast.success(t("linkCopied"));
           }}
+          style={{ backgroundColor: "#F59E0B", borderColor: "#F59E0B" }}
+        >
+          {t("copyLink")}
+        </Button>
+
+        <Button
+          variant="primary"
+          onClick={() => setShowSignature(true)}
+          style={{ backgroundColor: "#10B981", borderColor: "#10B981" }}
         >
           {t("signContract")}
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="primary"
           onClick={() => alert("Enviar por email (Cloud Function pendiente)")}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#6366F1",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter"
-          }}
+          style={{ backgroundColor: "#6366F1", borderColor: "#6366F1" }}
         >
           {t("sendEmail")}
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="primary"
           onClick={deleteContract}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#DC2626",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter"
-          }}
+          style={{ backgroundColor: "#DC2626", borderColor: "#DC2626" }}
         >
           {t("delete")}
-        </button>
+        </Button>
       </div>
 
       {/* Modal de firma */}
@@ -186,20 +164,13 @@ export default function ContractView() {
             }}
           />
 
-          <button
+          <Button
+            variant="primary"
             onClick={saveSignature}
-            style={{
-              padding: "10px 16px",
-              backgroundColor: "#10B981",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontFamily: "Inter"
-            }}
+            style={{ backgroundColor: "#10B981", borderColor: "#10B981" }}
           >
             {t("confirmSignature")}
-          </button>
+          </Button>
         </div>
       )}
     </AppLayout>

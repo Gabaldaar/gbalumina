@@ -14,6 +14,7 @@ import Button from "../../components/ui/Button";
 import { useTranslation } from "react-i18next";
 import { CurrencyContext } from "../../context/CurrencyContext";
 import { formatCurrency } from "../../utils/formatCurrency";
+import SectionHeader from "../../components/SectionHeader";
 
 export default function BudgetView() {
   const { id } = useParams();
@@ -175,6 +176,13 @@ export default function BudgetView() {
 
   return (
     <AppLayout>
+
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("editBudget")}
+        subtitle={t("editBudgetSubtitle")}
+      />
+
       <Button
         variant="secondary"
         onClick={() => navigate(-1)}
@@ -182,16 +190,6 @@ export default function BudgetView() {
       >
         ← {t("back")}
       </Button>
-
-      <h2
-        style={{
-          fontFamily: "Inter",
-          fontSize: "24px",
-          marginBottom: "20px"
-        }}
-      >
-        {t("editBudget")}
-      </h2>
 
       {error && (
         <div
@@ -348,9 +346,22 @@ export default function BudgetView() {
           {t("total")}: {formatCurrency(form.total, form.currency)}
         </h3>
 
-        <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+        <div style={{ display: "flex", gap: "10px", marginTop: "20px", flexWrap: "wrap" }}>
           <Button variant="primary" type="button" onClick={saveChanges}>
             {t("saveChanges")}
+          </Button>
+
+          <Button 
+            variant="primary" 
+            type="button" 
+            onClick={() => {
+              const publicLink = `${window.location.origin}/b/${form.id}`;
+              navigator.clipboard.writeText(publicLink);
+              alert(t("linkCopied"));
+            }}
+            style={{ backgroundColor: "#10B981", borderColor: "#10B981" }}
+          >
+            {t("copyLink")}
           </Button>
 
           <Button

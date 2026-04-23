@@ -7,6 +7,7 @@ import Button from "../../components/ui/Button";
 import { useTranslation } from "react-i18next";
 import { CurrencyContext } from "../../context/CurrencyContext";
 import { formatCurrency } from "../../utils/formatCurrency";
+import SectionHeader from "../../components/SectionHeader";
 
 export default function BudgetCreate() {
   const navigate = useNavigate();
@@ -143,6 +144,13 @@ export default function BudgetCreate() {
 
   return (
     <AppLayout>
+
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("newBudget")}
+        subtitle={t("createBudgetSubtitle")}
+      />
+
       <Button
         variant="secondary"
         onClick={() => navigate(-1)}
@@ -150,16 +158,6 @@ export default function BudgetCreate() {
       >
         ← {t("back")}
       </Button>
-
-      <h2
-        style={{
-          fontFamily: "Inter",
-          fontSize: "24px",
-          marginBottom: "20px"
-        }}
-      >
-        {t("newBudget")}
-      </h2>
 
       {error && (
         <div

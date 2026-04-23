@@ -2,11 +2,14 @@ import React from "react";
 import AppLayout from "../../layouts/AppLayout";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
 import {
   DocumentTextIcon,
   ClipboardDocumentCheckIcon,
   PhotoIcon
 } from "@heroicons/react/24/outline";
+
+import SectionHeader from "../../components/SectionHeader";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -14,16 +17,21 @@ export default function Dashboard() {
 
   return (
     <AppLayout>
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {t("dashboard")}
-      </h2>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-        gap: "20px"
-      }}>
-        
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("dashboard")}
+        subtitle={t("dashboardSubtitle")}
+      />
+
+      {/* TARJETAS DEL DASHBOARD */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "20px"
+        }}
+      >
         {/* Presupuestos */}
         <div style={card} onClick={() => navigate("/budgets")}>
           <DocumentTextIcon style={icon} />
@@ -44,7 +52,6 @@ export default function Dashboard() {
           <h3 style={title}>{t("selection")}</h3>
           <p style={desc}>{t("selectionDescription")}</p>
         </div>
-
       </div>
     </AppLayout>
   );

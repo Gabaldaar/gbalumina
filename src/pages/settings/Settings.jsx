@@ -2,19 +2,24 @@ import React, { useState, useEffect } from "react";
 import AppLayout from "../../layouts/AppLayout";
 import useSettings from "../../hooks/useSettings";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import SectionHeader from "../../components/SectionHeader";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-hot-toast";
 
 export default function Settings() {
   const { settings } = useSettings();
+  const { t } = useTranslation();
 
   return (
     <AppLayout>
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        Configuración
-      </h2>
+      <SectionHeader
+        title={t("settingsTitle")}
+        subtitle={t("settingsSubtitle")}
+      />
 
       {!settings && (
         <p style={{ fontFamily: "Inter", color: "#6B7280" }}>
-          Cargando configuración...
+          {t("loadingSettings")}
         </p>
       )}
 
@@ -23,52 +28,52 @@ export default function Settings() {
 
           {/* Datos del fotógrafo */}
           <Card
-            title="Datos del fotógrafo"
-            description="Información personal que se usará en contratos, presupuestos y PDFs."
+            title={t("photographerData")}
+            description={t("photographerDataDesc")}
           >
             <PhotographerForm />
           </Card>
 
           {/* Datos del estudio */}
           <Card
-            title="Datos del estudio"
-            description="Nombre comercial, contacto y datos que aparecerán en documentos."
+            title={t("studioData")}
+            description={t("studioDataDesc")}
           >
             <StudioForm />
           </Card>
 
           {/* Logo */}
           <Card
-            title="Logo del estudio"
-            description="Subí tu logo para usarlo en contratos, presupuestos y PDFs."
+            title={t("studioLogo")}
+            description={t("studioLogoDesc")}
           >
             <StudioLogoForm />
 
             <div style={{ marginTop: "12px", color: "#6B7280", fontFamily: "Inter", fontSize: "14px" }}>
-              <strong>Recomendaciones:</strong><br />
-              • Formatos permitidos: PNG, JPG, SVG, WEBP<br />
-              • Recomendado: PNG con fondo transparente<br />
-              • Tamaño sugerido: 512×512 px o mayor<br />
-              • Peso máximo recomendado: 500 KB<br />
-              • Consejo: Usá un logo cuadrado para mejores resultados en PDFs
+              <strong>{t("recommendations")}:</strong><br />
+              • {t("allowedFormats")}<br />
+              • {t("recommendedFormat")}<br />
+              • {t("suggestedSize")}<br />
+              • {t("maxWeight")}<br />
+              • {t("squareLogoTip")}
             </div>
           </Card>
 
 
           {/* Idioma */}
           <Card
-            title="Idioma"
-            description="Seleccioná el idioma de la aplicación."
+            title={t("language")}
+            description={t("languageDesc")}
           >
-            <p style={{ color: "#6B7280" }}>Pronto agregaremos el selector aquí.</p>
+            <p style={{ color: "#6B7280" }}>{t("soonFeature")}</p>
           </Card>
 
           {/* Monedas favoritas */}
           <Card
-            title="Monedas favoritas"
-            description="Elegí las monedas que querés ver primero al crear un presupuesto."
+            title={t("favoriteCurrencies")}
+            description={t("favoriteCurrenciesDesc")}
           >
-            <p style={{ color: "#6B7280" }}>Pronto agregaremos el selector aquí.</p>
+            <p style={{ color: "#6B7280" }}>{t("soonFeature")}</p>
           </Card>
 
         </div>
@@ -82,6 +87,7 @@ export default function Settings() {
 ------------------------------------------------------- */
 function PhotographerForm() {
   const { settings, updateSettings } = useSettings();
+  const { t } = useTranslation();
   const [local, setLocal] = useState(null);
 
   useEffect(() => {
@@ -99,21 +105,21 @@ function PhotographerForm() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "400px" }}>
       <InputField
-        label="Nombre del fotógrafo"
+        label={t("photographerNameLabel")}
         value={local.photographerName}
         onChange={handleLocalChange("photographerName")}
         onBlur={handleSave("photographerName")}
       />
 
       <InputField
-        label="Email"
+        label={t("email")}
         value={local.photographerEmail}
         onChange={handleLocalChange("photographerEmail")}
         onBlur={handleSave("photographerEmail")}
       />
 
       <InputField
-        label="Teléfono"
+        label={t("phone")}
         value={local.photographerPhone}
         onChange={handleLocalChange("photographerPhone")}
         onBlur={handleSave("photographerPhone")}
@@ -127,6 +133,7 @@ function PhotographerForm() {
 ------------------------------------------------------- */
 function StudioForm() {
   const { settings, updateSettings } = useSettings();
+  const { t } = useTranslation();
   const [local, setLocal] = useState(null);
 
   useEffect(() => {
@@ -144,28 +151,28 @@ function StudioForm() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "400px" }}>
       <InputField
-        label="Nombre del estudio"
+        label={t("studioNameLabel")}
         value={local.studioName}
         onChange={handleLocalChange("studioName")}
         onBlur={handleSave("studioName")}
       />
 
       <InputField
-        label="Dirección"
+        label={t("address")}
         value={local.studioAddress}
         onChange={handleLocalChange("studioAddress")}
         onBlur={handleSave("studioAddress")}
       />
 
       <InputField
-        label="Sitio web"
+        label={t("website")}
         value={local.studioWebsite}
         onChange={handleLocalChange("studioWebsite")}
         onBlur={handleSave("studioWebsite")}
       />
 
       <InputField
-        label="Instagram"
+        label={t("instagram")}
         value={local.studioInstagram}
         onChange={handleLocalChange("studioInstagram")}
         onBlur={handleSave("studioInstagram")}
@@ -179,6 +186,7 @@ function StudioForm() {
 ------------------------------------------------------- */
 function StudioLogoForm() {
   const { settings, updateSettings } = useSettings();
+  const { t } = useTranslation();
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(null);
 
@@ -212,7 +220,7 @@ function StudioLogoForm() {
 
     } catch (err) {
       console.error("Error subiendo logo:", err);
-      alert("Error subiendo el logo. Revisá la consola.");
+      toast.error(t("errorUploadingLogo"));
     }
 
     setUploading(false);
@@ -224,7 +232,7 @@ function StudioLogoForm() {
       {preview && (
         <img
           src={preview}
-          alt="Logo del estudio"
+          alt={t("studioLogo")}
           style={{
             width: "140px",
             height: "140px",
@@ -239,7 +247,7 @@ function StudioLogoForm() {
 
       <input type="file" accept="image/*" onChange={handleFile} />
 
-      {uploading && <p>Subiendo logo...</p>}
+      {uploading && <p>{t("uploadingLogo")}</p>}
     </div>
   );
 }
@@ -258,7 +266,7 @@ function InputField({ label, value, onChange, onBlur }) {
 
       <input
         type="text"
-        value={value}
+        value={value || ""}
         onChange={onChange}
         onBlur={onBlur}
         spellCheck={false}

@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { collection, onSnapshot } from "firebase/firestore";
+import SectionHeader from "../../components/SectionHeader";
+
+import Button from "../../components/ui/Button";
 
 const Clients = () => {
   const { t } = useTranslation();
@@ -24,35 +27,18 @@ const Clients = () => {
 
   return (
     <AppLayout>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px"
-        }}
-      >
-        <h2 style={{ fontFamily: "Inter", fontSize: "24px" }}>
-          {t("clients")}
-        </h2>
+      {/* Encabezado de sección */}
+      <SectionHeader
+        title={t("clients")}
+        subtitle={t("manageClients")}
+        right={
+          <Button variant="primary" onClick={() => navigate("/clients/new")}>
+            {t("createClient")}
+          </Button>
+        }
+      />
 
-        <button
-          onClick={() => navigate("/clients/new")}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#3B82F6",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter",
-            fontSize: "14px"
-          }}
-        >
-          {t("createClient")}
-        </button>
-      </div>
-
+      {/* Contenedor de lista */}
       <div
         style={{
           backgroundColor: "white",

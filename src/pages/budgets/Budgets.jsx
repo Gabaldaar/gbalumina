@@ -5,6 +5,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatCurrency } from "../../utils/formatCurrency";
+import SectionHeader from "../../components/SectionHeader";
+
+import Button from "../../components/ui/Button";
 
 export default function Budgets() {
   const navigate = useNavigate();
@@ -31,9 +34,17 @@ export default function Budgets() {
 
   return (
     <AppLayout>
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {t("budgets")}
-      </h2>
+
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("budgets")}
+        subtitle={t("manageBudgets")}
+        right={
+          <Button variant="primary" onClick={() => navigate("/budgets/new")}>
+            {t("createBudget")}
+          </Button>
+        }
+      />
 
       {/* Filtros */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>

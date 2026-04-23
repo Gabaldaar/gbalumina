@@ -4,6 +4,8 @@ import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import SectionHeader from "../../components/SectionHeader";
+import Button from "../../components/ui/Button";
 
 export default function Contracts() {
   const navigate = useNavigate();
@@ -30,29 +32,17 @@ export default function Contracts() {
 
   return (
     <AppLayout>
-      {/* Título */}
-      <h2 style={{ fontFamily: "Inter", fontSize: "24px", marginBottom: "20px" }}>
-        {t("contracts")}
-      </h2>
 
-      {/* Botón superior */}
-      <div style={{ marginBottom: "20px" }}>
-        <button
-          onClick={() => navigate("/contracts/new")}
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#3B82F6",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontFamily: "Inter",
-            fontSize: "14px"
-          }}
-        >
-          {t("newContract")}
-        </button>
-      </div>
+      {/* SectionHeader SIEMPRE va acá */}
+      <SectionHeader
+        title={t("contracts")}
+        subtitle={t("manageContracts")}
+        right={
+          <Button variant="primary" onClick={() => navigate("/contracts/new")}>
+            {t("newContract")}
+          </Button>
+        }
+      />
 
       {/* Filtros */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
@@ -101,7 +91,13 @@ export default function Contracts() {
               <span style={badge(c.status)}>{t(c.status)}</span>
             </div>
 
-            <span style={{ fontFamily: "Inter", fontSize: "14px", color: "#6B7280" }}>
+            <span
+              style={{
+                fontFamily: "Inter",
+                fontSize: "14px",
+                color: "#6B7280"
+              }}
+            >
               {c.templateName}
             </span>
           </div>
@@ -109,7 +105,8 @@ export default function Contracts() {
       </div>
 
       {/* Botón flotante */}
-      <button
+      <Button
+        variant="primary"
         onClick={() => navigate("/contracts/new")}
         style={{
           position: "fixed",
@@ -118,20 +115,13 @@ export default function Contracts() {
           width: "60px",
           height: "60px",
           borderRadius: "50%",
-          backgroundColor: "#3B82F6",
-          color: "white",
-          border: "none",
           fontSize: "32px",
-          cursor: "pointer",
           boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Inter"
+          padding: 0
         }}
       >
         +
-      </button>
+      </Button>
     </AppLayout>
   );
 }
