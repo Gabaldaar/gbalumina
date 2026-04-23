@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-hot-toast";
 import SignaturePad from "react-signature-canvas";
