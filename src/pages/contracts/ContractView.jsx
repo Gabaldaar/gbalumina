@@ -104,7 +104,7 @@ export default function ContractView() {
         <Button 
           variant="primary" 
           onClick={() => {
-            const publicLink = `${window.location.origin}/c/${id}`;
+            const publicLink = `${window.location.origin}/#/c/${id}`;
             navigator.clipboard.writeText(publicLink);
             toast.success(t("linkCopied"));
           }}

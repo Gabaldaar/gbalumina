@@ -355,7 +355,7 @@ export default function BudgetView() {
             variant="primary" 
             type="button" 
             onClick={() => {
-              const publicLink = `${window.location.origin}/b/${form.id}`;
+              const publicLink = `${window.location.origin}/#/b/${form.id}`;
               navigator.clipboard.writeText(publicLink);
               alert(t("linkCopied"));
             }}

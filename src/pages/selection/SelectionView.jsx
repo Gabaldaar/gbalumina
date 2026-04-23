@@ -104,7 +104,7 @@ export default function SelectionView() {
 
   if (!selection) return null;
 
-  const publicLink = `${window.location.origin}/s/${id}`;
+  const publicLink = `${window.location.origin}/#/s/${id}`;
 
   return (
     <AppLayout>

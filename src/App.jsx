@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import AppRoutes from "./routes";
 import { AuthProvider } from "./context/AuthContext";
 import { CurrencyProvider } from "./context/CurrencyContext";
@@ -10,7 +10,7 @@ export default function App() {
     <AuthProvider>
       <SettingsProvider>
         <CurrencyProvider>
-          <BrowserRouter>
+          <HashRouter>
             <AppRoutes />
             <Toaster 
               position="top-center" 
