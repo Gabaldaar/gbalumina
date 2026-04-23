@@ -20,7 +20,7 @@ export default function App() {
                 error: { iconTheme: { primary: '#EF4444', secondary: 'white' } }
               }} 
             />
-          </BrowserRouter>
+          </HashRouter>
         </CurrencyProvider>
       </SettingsProvider>
     </AuthProvider>
